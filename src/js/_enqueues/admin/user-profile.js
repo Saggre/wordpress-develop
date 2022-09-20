@@ -281,36 +281,52 @@
 		});
 	}
 
-	function check_pass_strength() {
-		var pass1 = $('#pass1').val(), strength;
+	/**
+	 * Update strength meter.
+	 *
+	 * @param {int} strength Strength level.
+	 * @param {Object} result Zxcvbn result object.
+	 */
+	function updatePasswordStrengthResult( strength, result ) {
+		var pass1 = $( '#pass1' ).val();
+		var $strengthResult = $( '#pass-strength-result' );
 
-		$('#pass-strength-result').removeClass('short bad good strong empty');
+		$strengthResult.removeClass( 'short bad good strong empty' );
 		if ( ! pass1 || '' ===  pass1.trim() ) {
-			$( '#pass-strength-result' ).addClass( 'empty' ).html( '&nbsp;' );
+			$strengthResult.addClass( 'empty' ).html( '&nbsp;' );
 			return;
 		}
 
-		strength = wp.passwordStrength.meter( pass1, wp.passwordStrength.userInputDisallowedList(), pass1 );
-
 		switch ( strength ) {
 			case -1:
-				$( '#pass-strength-result' ).addClass( 'bad' ).html( pwsL10n.unknown );
+				$strengthResult.addClass( 'bad' ).html( pwsL10n.unknown );
 				break;
 			case 2:
-				$('#pass-strength-result').addClass('bad').html( pwsL10n.bad );
+				$strengthResult.addClass( 'bad' ).html( pwsL10n.bad );
 				break;
 			case 3:
-				$('#pass-strength-result').addClass('good').html( pwsL10n.good );
+				$strengthResult.addClass( 'good' ).html( pwsL10n.good );
 				break;
 			case 4:
-				$('#pass-strength-result').addClass('strong').html( pwsL10n.strong );
+				$strengthResult.addClass( 'strong' ).html( pwsL10n.strong );
 				break;
 			case 5:
-				$('#pass-strength-result').addClass('short').html( pwsL10n.mismatch );
+				$strengthResult.addClass( 'short' ).html( pwsL10n.mismatch );
 				break;
 			default:
-				$('#pass-strength-result').addClass('short').html( pwsL10n['short'] );
+				$strengthResult.addClass( 'short' ).html( pwsL10n['short'] );
 		}
+	}
+
+	function check_pass_strength() {
+		var pass1 = $( '#pass1' ).val();
+		wp.passwordStrength.meter(
+			pass1,
+			wp.passwordStrength.
+			userInputDisallowedList(),
+			pass1,
+			{ onStrengthCalculated: updatePasswordStrengthResult }
+		);
 	}
 
 	function showOrHideWeakPasswordCheckbox() {
