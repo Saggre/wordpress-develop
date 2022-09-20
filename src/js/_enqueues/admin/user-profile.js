@@ -328,11 +328,19 @@
 		var suggestions = result.feedback.suggestions;
 
 		if ( suggestions.length > 0 ) {
-			$strengthResult.html( sprintf(
-				'%s. %s.',
-				resultText.replace( /\.$/, '' ),
-				__( suggestions[ suggestions.length - 1 ] )
-			) );
+			var suggestionKey = _.kebabCase( suggestions[ suggestions.length - 1 ] );
+			console.log("key", suggestionKey);
+			var suggestion = ( suggestionKey in pwsL10n ) ? pwsL10n[ suggestionKey ] : null;
+
+			if ( suggestion ){
+				$strengthResult.html( sprintf(
+					'%s. %s.',
+					resultText,
+					suggestion.replace( /\.$/, '' )
+				) );
+			} else {
+				$strengthResult.html( resultText );
+			}
 		} else {
 			$strengthResult.html( resultText );
 		}

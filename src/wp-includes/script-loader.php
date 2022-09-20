@@ -1134,12 +1134,54 @@ function wp_default_scripts( $scripts ) {
 		'password-strength-meter',
 		'pwsL10n',
 		array(
-			'unknown'  => _x( 'Password strength unknown', 'password strength' ),
-			'short'    => _x( 'Very weak', 'password strength' ),
-			'bad'      => _x( 'Weak', 'password strength' ),
-			'good'     => _x( 'Medium', 'password strength' ),
-			'strong'   => _x( 'Strong', 'password strength' ),
-			'mismatch' => _x( 'Mismatch', 'password mismatch' ),
+			'unknown'     => _x( 'Password strength unknown', 'password strength' ),
+			'short'       => _x( 'Very weak', 'password strength' ),
+			'bad'         => _x( 'Weak', 'password strength' ),
+			'good'        => _x( 'Medium', 'password strength' ),
+			'strong'      => _x( 'Strong', 'password strength' ),
+			'mismatch'    => _x( 'Mismatch', 'password mismatch' ),
+			'suggestions' => array(
+				_wp_to_kebab_case(
+					'Use a few words, avoid common phrases'
+				) => __( 'Use a few words, avoid common phrases', 'password strength' ),
+				_wp_to_kebab_case(
+					'No need for symbols, digits, or uppercase letters'
+				) => __( 'No need for symbols, digits, or uppercase letters', 'password strength' ),
+				_wp_to_kebab_case(
+					'Add another word or two. Uncommon words are better.'
+				) => __( 'Add another word or two. Uncommon words are better.', 'password strength' ),
+				_wp_to_kebab_case(
+					'Use a longer keyboard pattern with more turns'
+				) => __( 'Use a longer keyboard pattern with more turns', 'password strength' ),
+				_wp_to_kebab_case(
+					'Avoid repeated words and characters'
+				) => __( 'Avoid repeated words and characters', 'password strength' ),
+				_wp_to_kebab_case(
+					'Avoid sequences'
+				) => __( 'Avoid sequences', 'password strength' ),
+				_wp_to_kebab_case(
+					'Avoid recent years'
+				) => __( 'Avoid recent years', 'password strength' ),
+				_wp_to_kebab_case(
+					'Avoid years that are associated with you'
+				) => __( 'Avoid years that are associated with you', 'password strength' ),
+				_wp_to_kebab_case(
+					'Avoid dates and years that are associated with you'
+				) => __( 'Avoid dates and years that are associated with you', 'password strength' ),
+				_wp_to_kebab_case(
+					'Capitalization doesn\'t help very much'
+				) => __( 'Capitalization doesn\'t help very much', 'password strength' ),
+				_wp_to_kebab_case(
+					'All-uppercase is almost as easy to guess as all-lowercase'
+				) => __( 'All-uppercase is almost as easy to guess as all-lowercase', 'password strength' ),
+				_wp_to_kebab_case(
+					'Reversed words aren\'t much harder to guess'
+				) => __( 'Reversed words aren\'t much harder to guess', 'password strength' ),
+				_wp_to_kebab_case(
+					'Predictable substitutions like \'@\' instead of \'a\' don\'t help very much'
+				) => __( 'Predictable substitutions like \'@\' instead of \'a\' don\'t help very much',
+					'password strength' )
+			)
 		)
 	);
 	$scripts->set_translations( 'password-strength-meter' );
@@ -1150,7 +1192,7 @@ function wp_default_scripts( $scripts ) {
 	$scripts->add( 'auth-app', "/wp-admin/js/auth-app$suffix.js", array( 'jquery', 'wp-api-request', 'wp-i18n', 'wp-hooks' ), false, 1 );
 	$scripts->set_translations( 'auth-app' );
 
-	$scripts->add( 'user-profile', "/wp-admin/js/user-profile$suffix.js", array( 'jquery', 'password-strength-meter', 'wp-util' ), false, 1 );
+	$scripts->add( 'user-profile', "/wp-admin/js/user-profile$suffix.js", array( 'jquery', 'password-strength-meter', 'wp-util', 'lodash' ), false, 1 );
 	$scripts->set_translations( 'user-profile' );
 	$user_id = isset( $_GET['user_id'] ) ? (int) $_GET['user_id'] : 0;
 	did_action( 'init' ) && $scripts->localize(
