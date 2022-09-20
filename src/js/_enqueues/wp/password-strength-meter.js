@@ -43,9 +43,7 @@ window.wp = window.wp || {};
 
 			if ( password1 != password2 && password2 && password2.length > 0 ) {
 				score = 5;
-			}
-
-			if ( 'undefined' !== typeof window.zxcvbn ) {
+			} else if ( 'undefined' !== typeof window.zxcvbn ) {
 				result = zxcvbn( password1, disallowedList );
 				score = result.score;
 			}
