@@ -6,6 +6,7 @@
 (function($) {
 	var updateLock = false,
 		__ = wp.i18n.__,
+		sprintf = wp.i18n.sprintf,
 		$pass1Row,
 		$pass1,
 		$pass2,
@@ -297,24 +298,43 @@
 			return;
 		}
 
+		var resultText = pwsL10n['short'];
+
 		switch ( strength ) {
 			case -1:
-				$strengthResult.addClass( 'bad' ).html( pwsL10n.unknown );
+				$strengthResult.addClass( 'bad' );
+				resultText = pwsL10n.unknown;
 				break;
 			case 2:
-				$strengthResult.addClass( 'bad' ).html( pwsL10n.bad );
+				$strengthResult.addClass( 'bad' );
+				resultText = pwsL10n.bad;
 				break;
 			case 3:
-				$strengthResult.addClass( 'good' ).html( pwsL10n.good );
+				$strengthResult.addClass( 'good' );
+				resultText = pwsL10n.good;
 				break;
 			case 4:
-				$strengthResult.addClass( 'strong' ).html( pwsL10n.strong );
+				$strengthResult.addClass( 'strong' );
+				resultText = pwsL10n.strong;
 				break;
 			case 5:
-				$strengthResult.addClass( 'short' ).html( pwsL10n.mismatch );
+				$strengthResult.addClass( 'short' );
+				resultText = pwsL10n.mismatch;
 				break;
 			default:
-				$strengthResult.addClass( 'short' ).html( pwsL10n['short'] );
+				$strengthResult.addClass( 'short' );
+		}
+
+		var suggestions = result.feedback.suggestions;
+
+		if ( suggestions.length > 0 ) {
+			$strengthResult.html( sprintf(
+				'%s. %s.',
+				resultText.replace( /\.$/, '' ),
+				__( suggestions[ suggestions.length - 1 ] )
+			) );
+		} else {
+			$strengthResult.html( resultText );
 		}
 	}
 
