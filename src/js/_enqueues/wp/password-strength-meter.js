@@ -24,27 +24,37 @@ window.wp = window.wp || {};
 		 *
 		 * @since 3.7.0
 		 *
-		 * @param {string} password1       The subject password.
-		 * @param {Array}  disallowedList An array of words that will lower the entropy of
-		 *                                 the password.
-		 * @param {string} password2       The password confirmation.
+		 * @param {string} password1                   The subject password.
+		 * @param {Array}  disallowedList              An array of words that will lower the entropy of
+		 *                                             the password.
+		 * @param {string} password2                   The password confirmation.
+		 * @param {Object} [args={}]	               Optional. An object containing the following:
+		 * @param {Function} args.onStrengthCalculated Function to execute once the strength has been calculated.
 		 *
 		 * @return {number} The password strength score.
 		 */
-		meter : function( password1, disallowedList, password2 ) {
-			if ( ! Array.isArray( disallowedList ) )
+		meter : function( password1, disallowedList, password2, args ) {
+			if ( ! Array.isArray( disallowedList ) ) {
 				disallowedList = [ disallowedList.toString() ];
-
-			if (password1 != password2 && password2 && password2.length > 0)
-				return 5;
-
-			if ( 'undefined' === typeof window.zxcvbn ) {
-				// Password strength unknown.
-				return -1;
 			}
 
-			var result = zxcvbn( password1, disallowedList );
-			return result.score;
+			var result = null;
+			var score = -1;
+
+			if ( password1 != password2 && password2 && password2.length > 0 ) {
+				score = 5;
+			}
+
+			if ( 'undefined' !== typeof window.zxcvbn ) {
+				result = zxcvbn( password1, disallowedList );
+				score = result.score;
+			}
+
+			if ( 'undefined' !== typeof args && 'function' === typeof args.onStrengthCalculated ) {
+				args.onStrengthCalculated( score, result );
+			}
+
+			return score;
 		},
 
 		/**
