@@ -595,9 +595,7 @@ class Requests {
 		}
 
 		if ($options['idn'] !== false) {
-			$iri       = new Requests_IRI($url);
-			$iri->host = Requests_IDNAEncoder::encode($iri->ihost);
-			$url       = $iri->uri;
+			$url = wp_idna_encode_url( $url );
 		}
 
 		// Massage the type to ensure we support it.

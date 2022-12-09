@@ -6072,6 +6072,20 @@ function wp_guess_url() {
 }
 
 /**
+ * Convert a url to ASCII by using Punycode.
+ *
+ * @param string $url The url to convert.
+ *
+ * @return string
+ */
+function wp_idna_encode_url( $url ) {
+	$iri       = new Requests_IRI( $url );
+	$iri->host = Requests_IDNAEncoder::encode( $iri->ihost );
+
+	return $iri->uri;
+}
+
+/**
  * Temporarily suspends cache additions.
  *
  * Stops more data being added to the cache, but still allows cache retrieval.
