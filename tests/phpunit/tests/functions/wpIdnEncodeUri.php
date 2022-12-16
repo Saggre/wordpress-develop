@@ -1,34 +1,34 @@
 <?php
 
 /**
- * Tests for the wp_idna_encode_url() function
+ * Tests for the wp_idn_encode_uri() function
  *
  * @group functions.php
- * @covers ::wp_idna_encode_url
+ * @covers ::wp_idn_encode_uri
  */
-class Tests_Functions_wpIdnaEncodeUrl extends WP_UnitTestCase {
+class Tests_Functions_wpIdnEncodeUri extends WP_UnitTestCase {
 
 	/**
-	 * Tests wp_idna_encode_url().
+	 * Tests wp_idn_encode_uri().
 	 *
-	 * @dataProvider data_wp_idna_encode_url
+	 * @dataProvider data_wp_idn_encode_uri
 	 *
 	 * @param string $test_value Test value.
 	 * @param string $expected Expected return value.
 	 */
-	public function test_wp_idna_encode_url( $test_value, $expected ) {
-		$this->assertSame( $expected, wp_idna_encode_url( $test_value ) );
+	public function test_wp_idn_encode_uri( $test_value, $expected ) {
+		$this->assertSame( $expected, wp_idn_encode_uri( $test_value ) );
 	}
 
 	/**
-	 * Data provider for test_wp_idna_encode_url().
+	 * Data provider for test_wp_idn_encode_uri().
 	 *
 	 * @return array[] Test parameters {
 	 * @type string $test_value Test value.
 	 * @type string $expected Expected return value.
 	 * }
 	 */
-	public function data_wp_idna_encode_url() {
+	public function data_wp_idn_encode_uri() {
 		return array(
 			array( null, false ),
 			array( 10, false ),

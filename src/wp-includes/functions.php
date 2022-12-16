@@ -6078,7 +6078,7 @@ function wp_guess_url() {
  *
  * @return string|false The converted url, or false if the url cannot be converted.
  */
-function wp_idna_encode_url( $url ) {
+function wp_idn_encode_uri( $url ) {
 	if ( ! is_string( $url ) || empty( $url ) ) {
 		return false;
 	}
