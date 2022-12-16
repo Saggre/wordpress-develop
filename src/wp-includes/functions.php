@@ -6083,8 +6083,13 @@ function wp_idn_encode_uri( $url ) {
 		return false;
 	}
 
-	$iri       = new Requests_IRI( $url );
-	$iri->host = Requests_IDNAEncoder::encode( $iri->ihost );
+	$iri = new Requests_IRI( $url );
+
+	try {
+		$iri->host = Requests_IDNAEncoder::encode( $iri->ihost );
+	} catch ( Exception $e ) {
+		return false;
+	}
 
 	return $iri->uri;
 }

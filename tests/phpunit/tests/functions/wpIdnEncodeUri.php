@@ -33,6 +33,8 @@ class Tests_Functions_wpIdnEncodeUri extends WP_UnitTestCase {
 			array( null, false ),
 			array( 10, false ),
 			array( '', false ),
+			array( 'https://' . str_repeat( 'a', 64 ), false ),
+			array( 'https://wordpress.org', 'https://wordpress.org/' ),
 			array( 'https://wordpress.org', 'https://wordpress.org/' ),
 			array( 'https://wordpress.org/', 'https://wordpress.org/' ),
 			array( 'https://www.wordpress.org?foo=bar#anchor', 'https://www.wordpress.org/?foo=bar#anchor' ),
