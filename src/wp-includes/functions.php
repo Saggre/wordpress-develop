@@ -6076,9 +6076,13 @@ function wp_guess_url() {
  *
  * @param string $url The url to convert.
  *
- * @return string
+ * @return string|false The converted url, or false if the url cannot be converted.
  */
 function wp_idna_encode_url( $url ) {
+	if ( ! is_string( $url ) ) {
+		return false;
+	}
+
 	$iri       = new Requests_IRI( $url );
 	$iri->host = Requests_IDNAEncoder::encode( $iri->ihost );
 
