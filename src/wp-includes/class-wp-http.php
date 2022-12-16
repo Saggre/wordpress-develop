@@ -191,7 +191,7 @@ class WP_Http {
 			 */
 			'user-agent' => apply_filters(
 				'http_headers_useragent',
-				'WordPress/' . get_bloginfo( 'version' ) . '; ' . wp_idna_encode_url( get_bloginfo( 'url' ) ),
+				'WordPress/' . get_bloginfo( 'version' ) . '; ' . wp_idn_encode_uri( get_bloginfo( 'url' ) ),
 				$url
 			),
 			/**

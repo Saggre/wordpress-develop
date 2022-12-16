@@ -595,7 +595,7 @@ class Requests {
 		}
 
 		if ($options['idn'] !== false) {
-			$url = wp_idna_encode_url( $url );
+			$url = wp_idn_encode_uri( $url );
 		}
 
 		// Massage the type to ensure we support it.
