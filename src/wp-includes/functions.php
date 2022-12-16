@@ -6079,7 +6079,7 @@ function wp_guess_url() {
  * @return string|false The converted url, or false if the url cannot be converted.
  */
 function wp_idna_encode_url( $url ) {
-	if ( ! is_string( $url ) ) {
+	if ( ! is_string( $url ) || empty( $url ) ) {
 		return false;
 	}
 
