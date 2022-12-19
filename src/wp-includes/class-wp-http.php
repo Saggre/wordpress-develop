@@ -1101,4 +1101,19 @@ class WP_Http {
 		return false;
 	}
 
+	/**
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public static function get_useragent( $url = '' ) {
+		$blog_url  = wp_idn_encode_uri( get_bloginfo( 'url' ) );
+		$useragent = 'WordPress/' . get_bloginfo( 'version' );
+
+		if ( $blog_url ) {
+			$useragent .= '; ' . $blog_url;
+		}
+
+		return apply_filters( 'http_headers_useragent', $useragent, $url );
+	}
 }
